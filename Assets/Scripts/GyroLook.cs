@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GyroCamera : MonoBehaviour
+public class GyroLook : MonoBehaviour
 {
     private bool _gyroBool;
 
@@ -20,25 +20,26 @@ public class GyroCamera : MonoBehaviour
     public void Start()
     {
         var parent = transform.parent;
-        var camParent = new GameObject("GyroCamParent");
-        camParent.transform.position = transform.position;
-        transform.parent = camParent.transform;
-        var camGrandParent = new GameObject("GyroCamGrandParent");
-        camGrandParent.transform.position = transform.position;
-        camParent.transform.parent = camGrandParent.transform;
-        camGrandParent.transform.parent = parent;
-        Input.gyro.enabled = true;
+        var gyroParent = new GameObject("GyroParent");
+        gyroParent.transform.position = transform.position;
+        transform.parent = gyroParent.transform;
+        var gyroGrandParent = new GameObject("GyroGrandParent");
+        gyroGrandParent.transform.position = transform.position;
+        gyroParent.transform.parent = gyroGrandParent.transform;
+        gyroGrandParent.transform.parent = parent;
 
+        Input.gyro.enabled = true;
         if (!Input.gyro.enabled)
         {
-            Debug.Log("cant enable gyro");
+            Debug.Log("gyro: cant enable gyro");
         }
+
         this._gyroBool = SystemInfo.supportsGyroscope;
         if (_gyroBool)
         {
             _gyro = Input.gyro;
             _gyro.enabled = true;
-            camParent.transform.eulerAngles = new Vector3(90f, 180f, 0f);
+            gyroParent.transform.eulerAngles = new Vector3(90f, 180f, 0f);
             _rotFix = new Quaternion(0f, 0f, 1f, 0f);
         }
         else
@@ -47,7 +48,7 @@ public class GyroCamera : MonoBehaviour
             this.popup.MakePixelPerfect();
             this.touchLook.enabled = true;*/
 
-            Debug.Log("supportsGyroscope - false");
+            Debug.Log("gyro: supportsGyroscope is false");
         }
     }
 
