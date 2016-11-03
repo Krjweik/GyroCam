@@ -8,7 +8,6 @@ public class GyroCamera : MonoBehaviour
 
     private Quaternion _rotFix;
 
-    public GameObject cube;
 
     /*public TouchLook touchLook;
 
@@ -49,8 +48,6 @@ public class GyroCamera : MonoBehaviour
             this.touchLook.enabled = true;*/
 
             Debug.Log("supportsGyroscope - false");
-
-            cube.SetActive(false);
         }
     }
 
